@@ -23,6 +23,16 @@ jobs:
         run: npm ci
       - name: Type check
         run: npm run typecheck
+      - name: Build application
+        run: npm run build
+      - name: Capture application preview
+        run: npx electron scripts/capture-preview.cjs
+      - name: Upload application preview
+        uses: actions/upload-artifact@v4
+        with:
+          name: AndradeBoost-Preview
+          path: preview/*.png
+          if-no-files-found: error
       - name: Build installer
         run: npm run dist:win
         env:
